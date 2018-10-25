@@ -1,0 +1,6 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Drivers") do |sheet|
+  @rows.each do |driver|
+    sheet.add_row [driver.name, driver.weight, driver.time]
+  end
+end
