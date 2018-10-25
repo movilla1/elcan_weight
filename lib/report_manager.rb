@@ -13,11 +13,11 @@ class ReportManager
     rows
   end
 
-  def create_report_by_truck(truck_id)
+  def create_report_by_truck(truck_id, date_start, date_end)
     rows = []
     truck = Truck.find(truck_id)
     truck.users.each do |user|
-      thisrow = get_condensed_user_row(user, truck)
+      thisrow = get_condensed_user_row(user, truck, date_start, date_end)
       rows << thisrow
     end
     rows
@@ -32,14 +32,33 @@ class ReportManager
     thisrow
   end
 
-  def get_condensed_user_row(user, truck)
+  def get_condensed_user_row(user, truck, date_start, date_end)
+    rows = []
+    return false if date_start.blank? || date_end.blank?
+    weights = Weight.for_truck_and_date_range(truck.id, date_start, date_end)
+    weights.each do |weight_row|
+      rows << get_weight_hash(user.display_string, truck.display_string,
+                              weight_row)
+    end
+    rows
+  end
+
+  def get_weight_hash(driver, truck_str, weight)
+    {
+      driver: driver,
+      truck: truck_str,
+      weight: weight.weight,
+      date: weight.created_at,
+      in_out: weight.device
+    }
   end
 
   def get_row_weights(truck_id, user_id)
     result = []
     weights = Weight.where(truck_id: truck_id, user_id: user_id)
     weights.each do |weight|
-      result << { weight: weight.weight, date: weight.created_at }
+      result << { weight: weight.weight, date: weight.created_at,
+                  in_out: weight.device }
     end
     result
   end

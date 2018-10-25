@@ -42,6 +42,12 @@ gem 'rubyzip', '>= 1.2.1'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 
 gem 'axlsx_rails'
+
+gem 'bootstrap-datepicker-rails'
+
+# select2 for aa
+gem 'activeadmin-searchable_select'
+
 # Use Unicorn as the app server
 gem 'unicorn'
 

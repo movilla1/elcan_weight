@@ -2,16 +2,20 @@
 
 ActiveAdmin.register Truck do
   menu priority: 3, label: proc { I18n.t('trucks') }
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+
+  permit_params :license, :purchased, :capacity, :active
+
+  searchable_select_options(scope: Truck.all,
+    text_attribute: :license)
+
+  form do |f|
+    f.semantic_errors # shows errors on :base
+    f.inputs do # builds an input field for every attribute
+      f.input :license
+      f.input :purchased, as: :datepicker, autocomplete: false
+      f.input :capacity
+      f.input :active
+    end
+    f.actions # adds the 'Submit' and 'Cancel' buttons
+  end
 end

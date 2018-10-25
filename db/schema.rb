@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181023002728) do
+ActiveRecord::Schema.define(version: 20181025041128) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -70,8 +70,10 @@ ActiveRecord::Schema.define(version: 20181023002728) do
   end
 
   create_table "trucks_users", id: false, force: :cascade do |t|
-    t.integer "user_id",  null: false
-    t.integer "truck_id", null: false
+    t.integer  "user_id",    null: false
+    t.integer  "truck_id",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "trucks_users", ["truck_id", "user_id"], name: "index_trucks_users_on_truck_id_and_user_id"
@@ -109,6 +111,7 @@ ActiveRecord::Schema.define(version: 20181023002728) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.string   "device"
   end
 
   add_index "weights", ["truck_id"], name: "index_weights_on_truck_id"

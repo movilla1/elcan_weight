@@ -19,7 +19,7 @@ ActiveAdmin.register_page 'Dashboard' do
             end
           end
           div class: "pull-right"
-            strong I18n.t "total" + ": #{User.all.count}"
+            strong I18n.t("total") + ": #{User.all.count}"
         end
       end
       column do

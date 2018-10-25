@@ -1,2 +1,53 @@
-<h1>Reports#trucks</h1>
-<p>Find me in app/views/reports/trucks.html.erb</p>
+<h1><%= t("report_by_truck") %></h1>
+<% if Truck.all.count <= 0 %>
+  <div class="row alert alert-danger">
+    <h2>No trucks defined</h2>
+  </div>
+  <% else %>
+  <%= form_tag action: :trucks_report, method: :post do %>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <%= label_tag t('truck_license') %>
+      <%= select_tag :truck_id, options_from_collection_for_select(Truck.all, :id, :license),
+          {class: "select2", id: "truck_id_select2", data: {url: truck_by_license_path(format: :json)} }%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <%= label_tag t("date_start") %>
+      <%= text_field_tag :date_start, nil, {data: {provide: 'datepicker'}, class: "form-control"} %> <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+    <%= label_tag t("date_end") %>
+    <%= text_field_tag :date_end, nil, {data: {provide: 'datepicker'}, class: "form-control"} %>
+    </div>
+  </div>
+  <div class="row">&nbsp;</div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <%= button_tag t('get_report') %>
+    </div>
+  </div>
+  <% end %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#truck_id").select2({
+    placeholder: "Please select",
+    ajax: {
+      url: "/trucks/by_license.json",
+      dataType: "json",
+      results: function(data, page) {
+        return { 
+          results: $.map( data, function(person, i) {
+            return { id: person.id, text: person.name }
+          } )
+        }
+      }
+    }
+  });
+});
+</script>
+<% end %>

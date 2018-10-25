@@ -1,8 +1,29 @@
 es:
+  stats: "Estadísticas"
+  truck: "Camion"
+  trucks: "Camiones"
+  comments: "Comentarios"
+  users: "Usuarios"
+  stats_will_show_here: "Aquí estarán las estadísticas."
+  active: "Activo"
+  online_users: "Usuarios Activos"
+  active_trucks: "Camiones Activos"
+  total: "Total"
+  report_by_truck: "Reporte por Camión"
+  truck_license: "Patente"
+  date_start: "Fecha Inicio"
+  date_end: "Fecha Fin"
+  get_report: "Obtener Reporte"
   time:
     formats:
-      long: "%d/%m/%Y %H:%M:%S"
+      long: "%d de %B de %Y %H:%M:%S"
       short: "%d/%m/%y %H:%M"
+  date:
+    month_names:
+      [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    formats:
+      long: "%d de %B de %Y"
+      short: "%d/%m/%Y"
   activerecord:
     models:
       truck:
@@ -49,13 +70,5 @@ es:
         capacity: "Capacidad"
         created_at: "Creado"
         updated_at: "Actualizado"
-  stats: "Estadísticas"
-  truck: "Camion"
-  trucks: "Camiones"
-  comments: "Comentarios"
-  users: "Usuarios"
-  stats_will_show_here: "Aquí estarán las estadísticas."
-  active: "Activo"
-  online_users: "Usuarios Activos"
-  active_trucks: "Camiones Activos"
-  total: "Total"
+  errors:
+      connection_refused: "Conexión rechazada"

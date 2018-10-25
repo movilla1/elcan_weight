@@ -15,4 +15,8 @@ class User < ActiveRecord::Base
     tag = tags.find_by(tag_id: tag_id)
     tag.user if tag.present?
   end
+
+  def display_string
+    "#{name} #{lastname}"
+  end
 end

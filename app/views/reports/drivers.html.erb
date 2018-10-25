@@ -1,2 +1,21 @@
-<h1>Reports#drivers</h1>
-<p>Find me in app/views/reports/drivers.html.erb</p>
+<h1><%= _t("report_by_driver") %></h1>
+<%= form_tag action: driver_report_path, method: :post do |f| %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= label_tag for: :date_start, _t("date_start")%>
+    <%= text_field_tag :date_start, data: {provide: 'datepicker'} %> <br>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+  <%= label_tag for: :date_end, _t("date_end")%>
+  <%= text_field_tag :date_end, data: {provide: 'datepicker'} %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 text-center">
+    <%= submit_tag :get_report %>
+  </div>
+</div>
+<% end %>
+
