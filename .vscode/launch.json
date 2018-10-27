@@ -27,7 +27,8 @@
       "cwd": "${workspaceRoot}",
       "program": "${workspaceRoot}/bin/rails",
       "args": [
-        "server"
+        "server",
+        "-b0.0.0.0"
       ]
     },
     {
