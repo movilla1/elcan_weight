@@ -27,6 +27,10 @@ gem 'devise'
 
 gem 'activeadmin'
 
+gem 'draper'
+
+gem 'pundit'
+
 gem 'bootstrap-sass', '~> 3.3.7'
 
 gem 'activeadmin_blaze_theme'

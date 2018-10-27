@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+table_for report_rows do
+  column I18n.t('driver'), :driver
+  column I18n.t('truck'), :truck
+  column I18n.t('weights'), :weights do |item|
+    table_for item[:weights] do
+      column I18n.t('weight'), :weight
+      column I18n.t('date_label'), :date
+      column I18n.t('in_out'), :in_out do |weight|
+        status_tag weight[:in_out] == '1' ? I18n.t('in') : I18n.t('out')
+      end
+    end
+  end
+end

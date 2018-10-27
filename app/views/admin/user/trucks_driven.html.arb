@@ -1,0 +1,8 @@
+panel t('trucks_driven_by') + ': ' + user.display_string do
+  table_for trucks do
+    column :license
+    column t('use_date') do |row|
+      row.created_at
+    end
+  end
+end

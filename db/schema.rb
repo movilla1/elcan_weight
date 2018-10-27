@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181025041128) do
+ActiveRecord::Schema.define(version: 20181027033703) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -54,8 +54,10 @@ ActiveRecord::Schema.define(version: 20181025041128) do
     t.string   "tag_id"
     t.integer  "user_id"
     t.boolean  "active"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "uid"
+    t.integer  "device_position"
   end
 
   add_index "tags", ["user_id"], name: "index_tags_on_user_id"
@@ -68,16 +70,6 @@ ActiveRecord::Schema.define(version: 20181025041128) do
     t.datetime "updated_at", null: false
     t.boolean  "active"
   end
-
-  create_table "trucks_users", id: false, force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "truck_id",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "trucks_users", ["truck_id", "user_id"], name: "index_trucks_users_on_truck_id_and_user_id"
-  add_index "trucks_users", ["user_id", "truck_id"], name: "index_trucks_users_on_user_id_and_truck_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "nombre"

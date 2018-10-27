@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class User < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :username, use: :slugged
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable,
          :trackable, :validatable
-  extend FriendlyId
-  has_and_belongs_to_many :trucks
+  has_many :trucks, through: :weights
+  has_many :weights
   has_many :tags
-
-  friendly_id :username, use: :slugged
 
   def find_with_tag(tag_id)
     tag = tags.find_by(tag_id: tag_id)
@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
   end
 
   def display_string
-    "#{name} #{lastname}"
+    "#{nombre} #{apellido}"
+  end
+
+  def to_s
+    display_string
   end
 end

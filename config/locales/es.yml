@@ -14,6 +14,26 @@ es:
   date_start: "Fecha Inicio"
   date_end: "Fecha Fin"
   get_report: "Obtener Reporte"
+  users_by_time: "Usuarios por tiempo"
+  last_driven: "Ultima Conducción"
+  driver: "Conductor"
+  see_trucks_used: "Ver Camiones usados"
+  trucks_driven_by: "Camiones manejados por"
+  trucks_driven: "Camiones Manejados"
+  use_date: "Fecha de uso"
+  reports: "Reportes"
+  stats_help: "Ayuda"
+  help: "Ayuda"
+  stats_help_description: "Para obtener los reportes correspondientes, pulse sobre el enlace del reporte que le interesa,<br/>luego llene el formulario y obtendrá el reporte en formato html, utilize los enlaces al pié de la página para descargar el formato que prefiera."
+  report_by_driver: "Reporte por Chofer"
+  admin_welcome_message: "Bienvenido al sistema, por favor utilize el menú o los accesos rápidos disponibles debajo para navegar"
+  in: "Entrada"
+  out: "Salida"
+  weights: "Pesajes"
+  weight: "Pesaje"
+  in_out: "Entrada/Salida"
+  date_label: "Fecha"
+  format: "Formato"
   time:
     formats:
       long: "%d de %B de %Y %H:%M:%S"
@@ -35,11 +55,15 @@ es:
       user:
         one: "Usuario"
         other: "Usuarios"
+      comment:
+        one: "Comentario"
+        other: "Comentarios"
     attributes:
       user: 
         created_at: "Creado"
         updated_at: "Actualizado"
         user: "Usuario"
+        weights: "Pesajes"
         trucks: "Camiones"
         username: "nombre de usuario"
         encrypted_password: "Clave cifrada"
@@ -53,9 +77,12 @@ es:
         axis: "Eje"
         created_at: "Creado"
         updated_at: "Actualizado"
+        device: "Dispositivo"
+        complete: "Completo"
       tag:
         user: "Usuario"
         active: "Activo"
+        device_position: "Posicion en dispositivo"
         created_at: "Creado"
         updated_at: "Actualizado"
       role:
@@ -70,5 +97,6 @@ es:
         capacity: "Capacidad"
         created_at: "Creado"
         updated_at: "Actualizado"
+        active: "Activo"
   errors:
       connection_refused: "Conexión rechazada"

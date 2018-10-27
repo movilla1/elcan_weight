@@ -3,11 +3,11 @@
 # This class generates the reports for the system, it gets the data "condensed"
 # a view and a controller will be required to display the results.
 class ReportManager
-  def create_report_by_user(user_id)
+  def create_report_by_driver(user_id, start_date, end_date)
     rows = []
     driver = User.find(user_id)
     driver.trucks.each do |truck|
-      thisrow = get_condensed_truck_row(truck, user)
+      thisrow = get_condensed_truck_row(truck, driver)
       rows << thisrow
     end
     rows
@@ -24,11 +24,10 @@ class ReportManager
   end
 
   def get_condensed_truck_row(truck, user)
-    truck_id = truck.id
-    driver = "#{user.name} #{user.lastname}"
-    truck_str = "#{truck_id} #{truck.license}"
+    driver = user.display_string
+    truck_str = truck.display_string
     thisrow = { driver: driver, truck: truck_str }
-    thisrow[:weights] = get_row_weights(truck_id, user_id)
+    thisrow[:weights] = get_row_weights(truck.id, user.id)
     thisrow
   end
 

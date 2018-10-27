@@ -32,4 +32,6 @@ en:
   date_end: "Date End"
   report_by_truck: "Report By Truck"
   truck_license: "License"
+  trucks_driven: "Trucks Driven"
   get_report: "Get Report"
+  help: "Help"
