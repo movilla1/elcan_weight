@@ -9,17 +9,19 @@ class WeightsController < ApplicationController
   TIME_POSITION_END = 4
   WEIGHT_START = 5
   WEIGHT_END = 12
+  CARD_UID_START = 4
+  CARD_UID_END = 8
 
   def create_from_rfid
     data = params[:data]
     device = params[:device]
-    time_part = data[TIME_POSITION_START, TIME_POSITION_END]
-    weight = data[WEIGHT_START, WEIGHT_END]
-    get_user_or_return(data[TAG_ID_POSITION])
-    truck_id = @user.!truck.!id
-    Weight.create(truck_id: truck_id, created_at: time_part,
-                  eje: device, peso: weight)
-    render raw: 'OK', status: 200
+    intrussion = params[:intrussion]
+    if intrussion.present?
+      create_intrussion_record(data, device)
+    else
+      create_weight_record(data, device)
+    end
+    render json: 'OK', status: 200
   end
 
   private
@@ -29,7 +31,22 @@ class WeightsController < ApplicationController
   end
 
   def get_user_or_return(tag_id)
-    @user = User.find_with_tag(tag_id: tag_id)
-    render raw: 'FAIL' and return if user.blank?
+    @user = User.find_with_tag(tag_id)
+    render raw: 'FAIL' and return if @user.blank?
+  end
+
+  def create_weight_record(data, device)
+    time_part = data[TIME_POSITION_START, TIME_POSITION_END]
+    weight = data[WEIGHT_START, WEIGHT_END]
+    get_user_or_return(data[TAG_ID_POSITION])
+    truck_id = @user.current_truck.id
+    Weight.create(truck_id: truck_id, created_at: time_part,
+                  eje: device, peso: weight)
+  end
+
+  def create_intrussion_record(data, device)
+    time_part = data[TIME_POSITION_START, TIME_POSITION_END]
+    card_uid = data[CARD_UID_START, CARD_UID_END]
+    Intrussion.create(attemp_date: time_part, tag: card_uid, device: device)
   end
 end

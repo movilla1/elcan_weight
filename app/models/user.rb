@@ -11,8 +11,10 @@ class User < ActiveRecord::Base
   has_many :weights
   has_many :tags
 
-  def find_with_tag(tag_id)
-    tag = tags.find_by(tag_id: tag_id)
+  scope :current_truck, -> { trucks.order(created_at: :DESC).first }
+
+  def self.find_with_tag(tagid)
+    tag = Tag.find_by(id: tagid)
     tag.user if tag.present?
   end
 
