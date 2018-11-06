@@ -58,6 +58,9 @@ es:
       comment:
         one: "Comentario"
         other: "Comentarios"
+      intrussion:
+        one: "Intrusión"
+        other: "Intrusiones"
     attributes:
       user: 
         created_at: "Creado"
@@ -98,5 +101,11 @@ es:
         created_at: "Creado"
         updated_at: "Actualizado"
         active: "Activo"
+      intrussion:
+        attemp_date: "Fecha de intento"
+        device: "Dispositivo"
+        tag: "Tag"
+        created_at: "Creado"
+        updated_at: "Actualizado"
   errors:
       connection_refused: "Conexión rechazada"

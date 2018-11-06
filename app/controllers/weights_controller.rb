@@ -9,8 +9,8 @@ class WeightsController < ApplicationController
   TIME_POSITION_END = 4
   WEIGHT_START = 5
   WEIGHT_END = 12
-  CARD_UID_START = 4
-  CARD_UID_END = 8
+  CARD_UID_START = 0
+  CARD_UID_END = 3
 
   def create_from_rfid
     data = params[:data]
@@ -45,8 +45,12 @@ class WeightsController < ApplicationController
   end
 
   def create_intrussion_record(data, device)
-    time_part = data[TIME_POSITION_START, TIME_POSITION_END]
-    card_uid = data[CARD_UID_START, CARD_UID_END]
-    Intrussion.create(attemp_date: time_part, tag: card_uid, device: device)
+    time_part = data[CARD_UID_END, CARD_UID_END + 4]
+    card_uid_bin = data[CARD_UID_START, CARD_UID_END]
+    card_uid = []
+    card_uid_bin.each_byte do |c|
+      card_uid.push format("%02X", c)
+    end
+    Intrussion.create(attemp_date: time_part, tag: card_uid.join("-"), device: device)
   end
 end
