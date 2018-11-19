@@ -34,6 +34,8 @@ es:
   in_out: "Entrada/Salida"
   date_label: "Fecha"
   format: "Formato"
+  assign_truck: "Asignar Camión"
+  truck_assigned_ok: "Camión asignado correctamente"
   time:
     formats:
       long: "%d de %B de %Y %H:%M:%S"

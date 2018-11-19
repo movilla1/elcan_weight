@@ -9,6 +9,7 @@ ActiveAdmin.register Truck do
     scope: Truck.all,
     text_attribute: :license
   )
+
   filter :license
   filter :purchased
   filter :capacity

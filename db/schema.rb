@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181030130547) do
+ActiveRecord::Schema.define(version: 20181119130802) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 20181030130547) do
     t.integer  "device_position"
   end
 
+  add_index "tags", ["user_id"], name: "index_tags_on_user_id"
+
   create_table "trucks", force: :cascade do |t|
     t.string   "license"
     t.date     "purchased"
@@ -75,6 +77,14 @@ ActiveRecord::Schema.define(version: 20181030130547) do
     t.datetime "updated_at", null: false
     t.boolean  "active"
   end
+
+  create_table "trucks_users", id: false, force: :cascade do |t|
+    t.integer "user_id",  null: false
+    t.integer "truck_id", null: false
+  end
+
+  add_index "trucks_users", ["truck_id", "user_id"], name: "index_trucks_users_on_truck_id_and_user_id"
+  add_index "trucks_users", ["user_id", "truck_id"], name: "index_trucks_users_on_user_id_and_truck_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "nombre"
@@ -101,7 +111,7 @@ ActiveRecord::Schema.define(version: 20181030130547) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true
 
   create_table "weights", force: :cascade do |t|
-    t.float    "weight"
+    t.string   "weight"
     t.integer  "truck_id"
     t.integer  "axis"
     t.boolean  "complete"
@@ -109,6 +119,7 @@ ActiveRecord::Schema.define(version: 20181030130547) do
     t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.string   "device"
+    t.string   "tag_bytes"
   end
 
   add_index "weights", ["truck_id"], name: "index_weights_on_truck_id"

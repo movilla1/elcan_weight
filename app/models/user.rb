@@ -7,15 +7,17 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable,
          :trackable, :validatable
-  has_many :trucks, through: :weights
+  has_and_belongs_to_many :trucks
   has_many :weights
   has_many :tags
 
-  scope :current_truck, -> { trucks.order(created_at: :DESC).first }
-
-  def self.find_with_tag(tagid)
-    tag = Tag.find_by(id: tagid)
+  def self.find_with_tag(tag_uid)
+    tag = Tag.find_by(tag_uid: tag_uid.upcase)
     tag.user if tag.present?
+  end
+
+  def current_truck
+    trucks.order(created_at: :DESC).first
   end
 
   def display_string

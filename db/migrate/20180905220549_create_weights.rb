@@ -1,7 +1,7 @@
 class CreateWeights < ActiveRecord::Migration
   def change
     create_table :weights do |t|
-      t.float :weight
+      t.string :weight
       t.references :truck, index: true, foreign_key: true
       t.integer :axis
       t.boolean :complete

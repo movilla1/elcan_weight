@@ -1,0 +1,11 @@
+<h1><%= I18n.t('assign_truck') %></h1>
+<h2><%= I18n.t('driver')%>: <%= user.display_string %></h2>
+<%= semantic_form_for :user,
+  url: { action: :perform_assignment },
+  method: :post,
+  builder: ActiveAdmin::FormBuilder do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :truck, as: :searchable_select, ajax: { resource: Truck } %>
+  <% end %>
+  <%= f.actions %>
+<% end %>
