@@ -36,6 +36,12 @@ es:
   format: "Formato"
   assign_truck: "Asignar Camión"
   truck_assigned_ok: "Camión asignado correctamente"
+  actions: "Acciones"
+  add_to_device: "Agregar a Dispositivo"
+  are_you_sure: "¿Está seguro?"
+  view: "Ver"
+  delete: "Eliminar"
+  tags_on_device: "Tags en el Disp."
   time:
     formats:
       long: "%d de %B de %Y %H:%M:%S"
@@ -63,6 +69,12 @@ es:
       intrussion:
         one: "Intrusión"
         other: "Intrusiones"
+      device:
+        one: "Dispositivo"
+        other: "Dispositivos"
+      tag_position:
+        one: "Posicion en Disp."
+        other: "Posiciones en Disp."
     attributes:
       user: 
         created_at: "Creado"
@@ -87,7 +99,6 @@ es:
       tag:
         user: "Usuario"
         active: "Activo"
-        device_position: "Posicion en dispositivo"
         created_at: "Creado"
         updated_at: "Actualizado"
       role:
@@ -109,5 +120,9 @@ es:
         tag: "Tag"
         created_at: "Creado"
         updated_at: "Actualizado"
+      device:
+        created_at: "Creado"
+        updated_at: "Actualizado"
+      
   errors:
       connection_refused: "Conexión rechazada"

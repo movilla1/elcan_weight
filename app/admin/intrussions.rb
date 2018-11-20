@@ -7,17 +7,28 @@ ActiveAdmin.register Intrussion do
   index do
     selectable_column
     column :attemp_date
-    column :tag do |row|
-      row.tag.each_byte do |c|
-        format('%02X', c)
-      end
-    end
+    column :tag
     column :device do |row|
-      row.device.each_byte do |c|
-        format('%02X', c)
-      end
+      link_to row.device, admin_device_path(row.device)
     end
     column :created_at
-    actions
+    actions defaults: false do |row|
+      dropdown_menu t('actions') do
+        item t('add_to_device'), add_to_device_admin_intrussion_path(row), method: :patch
+        item t('view'), admin_intrussion_path(row)
+        item t('delete'), admin_intrussion_path(row), method: :delete, confirm: t('are_you_sure')
+      end
+    end
+  end
+
+# API for tag management expects a user and password to allow to proceed,
+# plus the following:
+# ti: Tag ID in hex
+# po: Position in hex too.
+# rm: on or off indicating if the operation is a remove or add (on removes,
+#     off adds)
+  member_action :add_to_device, method: :patch do
+    #TODO
   end
 end
+

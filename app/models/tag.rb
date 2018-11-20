@@ -2,4 +2,6 @@
 
 class Tag < ActiveRecord::Base
   belongs_to :user
+  has_many :tag_positions
+  scope :active, -> { where(active: true) }
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181119130802) do
+ActiveRecord::Schema.define(version: 20181120044206) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20181119130802) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+
+  create_table "devices", force: :cascade do |t|
+    t.string   "uid"
+    t.string   "net_addr"
+    t.string   "username"
+    t.string   "pass"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "slug"
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -58,13 +68,23 @@ ActiveRecord::Schema.define(version: 20181119130802) do
 
   add_index "roles", ["user_id"], name: "index_roles_on_user_id"
 
+  create_table "tag_positions", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "device_id"
+    t.integer  "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tag_positions", ["device_id"], name: "index_tag_positions_on_device_id"
+  add_index "tag_positions", ["tag_id"], name: "index_tag_positions_on_tag_id"
+
   create_table "tags", force: :cascade do |t|
     t.string   "tag_uid"
     t.integer  "user_id"
     t.boolean  "active"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "device_position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "tags", ["user_id"], name: "index_tags_on_user_id"

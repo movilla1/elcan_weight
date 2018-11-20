@@ -1,6 +1,11 @@
 ActiveAdmin.register Tag do
   permit_params :user_id, :active, :tag_uid, :device_position
 
+  searchable_select_options(
+    scope: Tag.active,
+    text_attribute: :id
+  )
+
   filter :user
   filter :tag_uid
   filter :active
@@ -10,7 +15,6 @@ ActiveAdmin.register Tag do
     column :id
     column :tag_uid
     column :active
-    column :device_position
     actions
   end
 
@@ -18,7 +22,6 @@ ActiveAdmin.register Tag do
     f.semantic_errors
     f.inputs do
       input :tag_uid
-      input :device_position
       input :active
       input :user
     end
@@ -30,7 +33,6 @@ ActiveAdmin.register Tag do
       row :id
       row :tag_uid
       row :user
-      row :device_position
       row :active
       row :created_at
       row :updated_at
