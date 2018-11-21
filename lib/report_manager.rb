@@ -7,7 +7,7 @@ class ReportManager
     rows = []
     driver = User.find(user_id)
     driver.trucks.each do |truck|
-      thisrow = get_condensed_truck_row(truck, driver)
+      thisrow = get_condensed_truck_row(truck, driver, start_date, end_date)
       rows << thisrow
     end
     rows
@@ -23,11 +23,11 @@ class ReportManager
     rows
   end
 
-  def get_condensed_truck_row(truck, user)
+  def get_condensed_truck_row(truck, user, start_date, end_date)
     driver = user.display_string
     truck_str = truck.display_string
     thisrow = { driver: driver, truck: truck_str }
-    thisrow[:weights] = get_row_weights(truck.id, user.id)
+    thisrow[:weights] = get_row_weights(truck.id, user.id, start_date, end_date)
     thisrow
   end
 
@@ -52,9 +52,12 @@ class ReportManager
     }
   end
 
-  def get_row_weights(truck_id, user_id)
+  def get_row_weights(truck_id, user_id, start_date, end_date)
     result = []
-    weights = Weight.where(truck_id: truck_id, user_id: user_id)
+    weights = Weight.where(
+      truck_id: truck_id, user_id: user_id,
+      created_at: start_date..end_date
+    )
     weights.each do |weight|
       result << { weight: weight.weight, date: weight.created_at,
                   in_out: weight.device }

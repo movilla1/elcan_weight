@@ -1,4 +1,16 @@
 # frozen_string_literal: true
+# == Schema Information
+#
+# Table name: tags
+#
+#  id         :integer          not null, primary key
+#  tag_uid    :string
+#  user_id    :integer
+#  active     :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 
 class Tag < ActiveRecord::Base
   belongs_to :user

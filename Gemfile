@@ -49,6 +49,8 @@ gem 'axlsx_rails'
 
 gem 'bootstrap-datepicker-rails'
 
+gem 'httparty'
+
 # select2 for aa
 gem 'activeadmin-searchable_select'
 
@@ -69,5 +71,10 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'erd'
+
+  gem 'annotate'
+
 end
 

@@ -30,7 +30,7 @@ es:
   in: "Entrada"
   out: "Salida"
   weights: "Pesajes"
-  weight: "Pesaje"
+  weight: "Peso"
   in_out: "Entrada/Salida"
   date_label: "Fecha"
   format: "Formato"

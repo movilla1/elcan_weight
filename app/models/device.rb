@@ -1,4 +1,19 @@
 # frozen_string_literal: true
+# == Schema Information
+#
+# Table name: devices
+#
+#  id         :integer          not null, primary key
+#  uid        :string
+#  net_addr   :string
+#  username   :string
+#  pass       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  slug       :string
+#  in_out     :boolean
+#
+
 
 class Device < ActiveRecord::Base
   extend FriendlyId

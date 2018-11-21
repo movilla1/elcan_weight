@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: trucks
+#
+#  id         :integer          not null, primary key
+#  license    :string
+#  purchased  :date
+#  capacity   :float
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  active     :boolean
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:

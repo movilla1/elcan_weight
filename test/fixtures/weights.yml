@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: weights
+#
+#  id         :integer          not null, primary key
+#  weight     :string
+#  truck_id   :integer
+#  axis       :integer
+#  complete   :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#  device     :string
+#  tag_bytes  :string
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
