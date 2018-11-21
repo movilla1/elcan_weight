@@ -3,6 +3,7 @@
 ActiveAdmin.register Device do
   permit_params [
     :uid,
+    :name,
     :username,
     :pass,
     :net_addr,

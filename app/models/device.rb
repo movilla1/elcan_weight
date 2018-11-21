@@ -12,8 +12,8 @@
 #  updated_at :datetime         not null
 #  slug       :string
 #  in_out     :boolean
+#  name       :string
 #
-
 
 class Device < ActiveRecord::Base
   extend FriendlyId

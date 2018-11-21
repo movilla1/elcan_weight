@@ -60,7 +60,7 @@ class ReportManager
     )
     weights.each do |weight|
       result << { weight: weight.weight, date: weight.created_at,
-                  in_out: weight.device }
+                  in_out: weight.device.in_out }
     end
     result
   end

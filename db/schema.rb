@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181121041746) do
+ActiveRecord::Schema.define(version: 20181121043745) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20181121041746) do
     t.datetime "updated_at", null: false
     t.string   "slug"
     t.boolean  "in_out"
+    t.string   "name"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -139,8 +140,8 @@ ActiveRecord::Schema.define(version: 20181121041746) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
-    t.string   "device"
-    t.string   "tag_bytes"
+    t.string   "raw_data"
+    t.integer  "device_id"
   end
 
   add_index "weights", ["truck_id"], name: "index_weights_on_truck_id"

@@ -35,18 +35,18 @@ class WeightsController < ApplicationController
     render raw: 'FAIL' and return if @user.blank?
   end
 
-  def create_weight_record(data, device)
+  def create_weight_record(data, device_uid)
     card_uid, stamp_part, weight_part = data.split('*')
     get_user_or_return(card_uid)
     truck_id = @user.current_truck.id
+    device = Device.find_by_uid(device_uid)
     w = Weight.create(
       truck_id: truck_id,
       created_at: stamp_part,
-      axis: device,
       weight: weight_part,
-      device: device,
+      device: device.id,
       user_id: @user.id,
-      tag_bytes: card_uid
+      raw_data: data
     )
 
     w.blank? ? 'FAIL' : 'OK'

@@ -9,7 +9,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
+# Indexes
+#
+#  index_roles_on_user_id  (user_id)
+#
 
 class Role < ActiveRecord::Base
   belongs_to :user
