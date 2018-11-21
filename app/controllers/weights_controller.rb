@@ -44,7 +44,7 @@ class WeightsController < ApplicationController
       truck_id: truck_id,
       created_at: stamp_part,
       weight: weight_part,
-      device: device.id,
+      device_id: device.id,
       user_id: @user.id,
       raw_data: data
     )

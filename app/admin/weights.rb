@@ -27,10 +27,10 @@ ActiveAdmin.register Weight do
     selectable_column
     column :id
     column :truck
-    column :axis
+    column :weight
     column :user
     column :device
-    column :complete
+    column :created_at
     actions
   end
 end

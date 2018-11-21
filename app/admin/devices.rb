@@ -18,6 +18,7 @@ ActiveAdmin.register Device do
   index do
     selectable_column
     column :id
+    column :name
     column :uid
     column :net_addr
     column :created_at
@@ -27,11 +28,14 @@ ActiveAdmin.register Device do
   show do
     attributes_table do
       row :uid
+      row :name
       row :net_addr
       row :username
       row :pass do |dev|
         dev.pass.chars.map { |_x| '*' }.join + '*' * rand(5)
       end
+      row :created_at
+      row :updated_at
     end
   end
 
@@ -51,6 +55,7 @@ ActiveAdmin.register Device do
     f.semantic_errors
     f.inputs heading: I18n.t('device') do
       f.input :uid
+      f.input :name
       f.input :net_addr
       f.input :username
       f.input :pass, as: :password
