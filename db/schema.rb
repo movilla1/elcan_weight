@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181121043745) do
+ActiveRecord::Schema.define(version: 20181123030541) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -95,9 +95,10 @@ ActiveRecord::Schema.define(version: 20181121043745) do
     t.string   "license"
     t.date     "purchased"
     t.float    "capacity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.boolean  "active"
+    t.decimal  "empty_weight"
   end
 
   create_table "trucks_users", id: false, force: :cascade do |t|

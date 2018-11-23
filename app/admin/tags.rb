@@ -1,4 +1,6 @@
 ActiveAdmin.register Tag do
+  menu label: 'Tags',
+       parent: 'Device Manager'
   permit_params :user_id, :active, :tag_uid, :device_position
 
   searchable_select_options(

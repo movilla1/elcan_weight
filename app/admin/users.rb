@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register User do
-  menu priority: 4, label: proc { I18n.t('users') }
+  menu priority: 4,
+       id: 'User',
+       label: proc { I18n.t('users') },
+       parent: 'User Manager'
   permit_params %i[
     nombre
     apellido

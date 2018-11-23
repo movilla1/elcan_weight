@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Role do
+  menu parent: 'User Manager'
   # permit_params :list, :of, :attributes, :on, :model
 
   form do |f|

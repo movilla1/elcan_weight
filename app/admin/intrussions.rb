@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Intrussion do
+  menu parent: 'Device Manager'
   actions :all, except: %i[new update edit create]
   # permit_params :list, :of, :attributes, :on, :model
 
@@ -14,9 +15,14 @@ ActiveAdmin.register Intrussion do
     column :created_at
     actions defaults: false do |row|
       dropdown_menu t('actions') do
-        item t('add_to_device'), add_to_device_admin_intrussion_path(row), method: :patch
+        item t('add_to_device'),
+             add_to_device_admin_intrussion_path(id: row.id),
+             method: :patch
         item t('view'), admin_intrussion_path(row)
-        item t('delete'), admin_intrussion_path(row), method: :delete, confirm: t('are_you_sure')
+        item t('delete'),
+             admin_intrussion_path(row),
+             method: :delete,
+             confirm: t('are_you_sure')
       end
     end
   end
@@ -28,7 +34,10 @@ ActiveAdmin.register Intrussion do
 # rm: on or off indicating if the operation is a remove or add (on removes,
 #     off adds)
   member_action :add_to_device, method: :patch do
-    #TODO
+    i_record = Intrussion.find(params[:id])
+    device = Device.find(i_record.device)
+    tag_uid = i_record.tag
+    render 'admin/intrussions/add_to_device', locals: { device: device, tag: tag_uid }
   end
 end
 

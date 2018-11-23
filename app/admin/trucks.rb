@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Truck do
-  menu priority: 3, label: proc { I18n.t('trucks') }
+  menu priority: 2, label: proc { I18n.t('trucks') }
 
-  permit_params :license, :purchased, :capacity, :active
+  permit_params :license, :purchased, :capacity, :active, :empty_weight
 
   searchable_select_options(
     scope: Truck.all,
@@ -21,6 +21,7 @@ ActiveAdmin.register Truck do
       f.input :license
       f.input :purchased, as: :datepicker, autocomplete: false
       f.input :capacity
+      f.input :empty_weight
       f.input :active
     end
     f.actions # adds the 'Submit' and 'Cancel' buttons
@@ -32,6 +33,7 @@ ActiveAdmin.register Truck do
       row :license
       row :purchased
       row :capacity
+      row :empty_weight
       row :created_at
       row :updated_at
     end

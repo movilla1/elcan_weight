@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Weight do
+  menu priority: 3
   # permit_params :list, :of, :attributes, :on, :model
   permit_params :truck_id, :weight, :axis, :complete, :device_id, :user_id
 

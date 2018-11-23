@@ -42,6 +42,11 @@ es:
   view: "Ver"
   delete: "Eliminar"
   tags_on_device: "Tags en el Disp."
+  system_for: "Sistema para:"
+  user_manager: "Adm. Usuarios"
+  incomplete: "Incompleto"
+  unknown: "Desconocido"
+  duration: "Duración"
   time:
     formats:
       long: "%d de %B de %Y %H:%M:%S"

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
-require 'report_manager'
+require 'reports/manager.rb'
+require 'reports/by_driver.rb'
+
 ActiveAdmin.register_page 'Stats' do
-  menu priority: 2, label: proc { I18n.t('stats') }
+  menu priority: 10, label: proc { I18n.t('stats') }
   sidebar I18n.t('help') do
     h3 t('stats_help')
     para t('stats_help_description')
@@ -47,12 +49,8 @@ ActiveAdmin.register_page 'Stats' do
     if params[:driver_id].blank?
       redirect_to(:back, notice: 'No driver selected') and return
     end
-    mgr = ReportManager.new
-    report_rows = mgr.create_report_by_driver(
-      params[:driver_id],
-      params[:date_start],
-      params[:date_end]
-    )
+    rpt = Reports::ByDriver.new(params[:driver_id], params[:date_start], params[:date_end])
+    report_rows = rpt.report
     render 'admin/stats/report_by_driver', locals: { report_rows: report_rows }
   end
 end
