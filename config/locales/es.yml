@@ -13,6 +13,7 @@ es:
   truck_license: "Patente"
   date_start: "Fecha Inicio"
   date_end: "Fecha Fin"
+  date_weight: "Fecha Pesaje"
   get_report: "Obtener Reporte"
   users_by_time: "Usuarios por tiempo"
   last_driven: "Ultima Conducción"
@@ -47,6 +48,10 @@ es:
   incomplete: "Incompleto"
   unknown: "Desconocido"
   duration: "Duración"
+  user_update_success: "Usuario actualizado correctamente"
+  daily_report: "Reporte Diario"
+  day_to_fetch: "Dia a obtener"
+  no_driver_selected: "No ha seleccionado un chofer"
   time:
     formats:
       long: "%d de %B de %Y %H:%M:%S"
@@ -128,6 +133,10 @@ es:
       device:
         created_at: "Creado"
         updated_at: "Actualizado"
-      
   errors:
-      connection_refused: "Conexión rechazada"
+    connection_refused: "Conexión rechazada"
+    models:
+      user:
+        attributes:
+          password:
+            blank: "Clave vacía"

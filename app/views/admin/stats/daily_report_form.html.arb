@@ -1,0 +1,17 @@
+h1 I18n.t('daily_report')
+
+form action: admin_stats_daily_report_render_path, method: :post do
+  div class: 'row' do
+    div class: 'col-md-4 col-md-offset-4' do
+      label I18n.t('day_to_fetch'), for: 'date_start'
+      input type: 'text', name: :date_start, 'data-provide': 'datepicker', "data-date-format": "yyyy-mm-dd"
+    end
+  end
+  br
+  input type: 'hidden', name: :authenticity_token, value: form_authenticity_token
+  div class: 'row' do
+    div class: 'col-md-12 text-center' do
+      submit_tag I18n.t('get_report')
+    end
+  end
+end

@@ -21,6 +21,8 @@ class Device < ActiveRecord::Base
 
   has_many :tags, through: :tag_positions
   has_many :tag_positions
+  has_many :intrussions
+
   accepts_nested_attributes_for :tag_positions
 
   def to_s

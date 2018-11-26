@@ -75,6 +75,5 @@ group :development do
   gem 'erd'
 
   gem 'annotate'
-
 end
 

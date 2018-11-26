@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181123030541) do
+ActiveRecord::Schema.define(version: 20181125140524) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -56,10 +56,13 @@ ActiveRecord::Schema.define(version: 20181123030541) do
   create_table "intrussions", force: :cascade do |t|
     t.datetime "attemp_date"
     t.string   "tag"
-    t.string   "device"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "device_bytes"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "device_id"
   end
+
+  add_index "intrussions", ["device_id"], name: "index_intrussions_on_device_id"
 
   create_table "roles", force: :cascade do |t|
     t.integer  "user_id"

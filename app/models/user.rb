@@ -37,8 +37,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable,
          :trackable, :validatable
   has_and_belongs_to_many :trucks
+  has_many :roles
   has_many :weights
   has_many :tags
+  accepts_nested_attributes_for :roles
+
+  scope :by_role, ->(this_rol) { joins(:roles).where(roles: { role: this_rol }) }
 
   def self.find_with_tag(tag_uid)
     tag = Tag.find_by(tag_uid: tag_uid.upcase)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 table_for report_rows do
   column I18n.t('driver'), :driver
   column I18n.t('truck'), :truck

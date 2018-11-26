@@ -2,18 +2,20 @@
 
 ActiveAdmin.register User do
   menu priority: 4,
-       id: 'User',
-       label: proc { I18n.t('users') },
-       parent: 'User Manager'
-  permit_params %i[
-    nombre
-    apellido
-    legajo
-    username
-    email
-    slug
-    password
-    password_confirmation
+       id: "User",
+       label: proc { I18n.t("users") },
+       parent: "User Manager"
+  includes :roles
+  permit_params [
+    :nombre,
+    :apellido,
+    :legajo,
+    :username,
+    :email,
+    :slug,
+    :password,
+    :password_confirmation,
+    :role_ids
   ]
 
   searchable_select_options(
@@ -35,6 +37,14 @@ ActiveAdmin.register User do
     column :nombre
     column :apellido
     column :legajo
+    column :user_roles do |row|
+      row.roles.each do |rol|
+        next if rol.blank?
+        div class: "role-display" do
+          rol.role.humanize
+        end
+      end
+    end
     actions
   end
 
@@ -49,6 +59,9 @@ ActiveAdmin.register User do
       f.input :slug
       f.input :password, as: :password
       f.input :password_confirmation, as: :password
+      has_many :roles do |nf|
+        nf.input :role, as: :searchable_select, collection: Role.roles
+      end
     end
     f.actions # adds the 'Submit' and 'Cancel' buttons
   end
@@ -56,6 +69,33 @@ ActiveAdmin.register User do
   controller do
     def find_resource
       scoped_collection.friendly.find(params[:id])
+    end
+
+    def update
+      @user = User.find(params[:id])
+      roles = params[:user].delete(:role_ids)
+      if permitted_params[:user][:password].blank?
+        _pwd = permitted_params[:user].delete(:password)
+        _pwd_c = permitted_params[:user].delete(:password_confirmation)
+        @user.update_without_password(permitted_params[:user])
+      else
+        @user.update_attributes(permitted_params[:user])
+      end
+      if @user.errors.blank?
+        update_roles(roles)
+        redirect_to admin_users_path, notice: t("user_update_success")
+      else
+        render :edit
+      end
+    end
+
+    def update_roles(roles)
+      return if @user.blank?
+      @user.roles.destroy_all
+      clean_roles = roles.reject &:empty?
+      clean_roles.each do |s_role|
+        @user.roles.create!(role: s_role.to_i) if s_role.present?
+      end
     end
   end
 
@@ -75,42 +115,42 @@ ActiveAdmin.register User do
   end
 
   action_item :see_trucks, only: :show do
-    link_to t('see_trucks_used'), trucks_driven_admin_user_path
+    link_to t("see_trucks_used"), trucks_driven_admin_user_path
   end
 
   action_item :assign_truck, only: :show do
-    link_to t('assign_truck'), assign_truck_admin_user_path
+    link_to t("assign_truck"), assign_truck_admin_user_path
   end
 
-  member_action :trucks_driven, title: I18n.t('trucks_driven') do
+  member_action :trucks_driven, title: I18n.t("trucks_driven") do
     user = User.find(params[:id])
-    render 'admin/user/trucks_driven', locals: {
+    render "admin/user/trucks_driven", locals: {
       trucks: user.trucks,
       user: user
     }
   end
 
-  member_action :assign_truck, title: I18n.t('assign_truck') do
+  member_action :assign_truck, title: I18n.t("assign_truck") do
     user = User.find(params[:id])
-    render 'admin/user/assign_truck', locals: { user: user }
+    render "admin/user/assign_truck", locals: { user: user }
   end
 
   member_action :perform_assignment, method: :post do
     user = User.find(params[:id])
     if user.blank?
-      flash[:error] = t('user_not_existent')
-      redirect_to admin_users_path and return
+      flash[:error] = t("user_not_existent")
+      redirect_to(admin_users_path) && return
     end
     truck_id = params["user"]["truck"]
     ut = TrucksUser.create!(user_id: user.id, truck_id: truck_id)
     if ut.present?
       redirect_to(
         admin_user_path(user),
-        notice: t('truck_assigned_ok')
-      ) and return
+        notice: t("truck_assigned_ok")
+      ) && return
     else
-      flash[:warning] = t('failed_truck_assignment')
-      redirect_to admin_user_path(user) and return
+      flash[:warning] = t("failed_truck_assignment")
+      redirect_to(admin_user_path(user)) && return
     end
   end
 end
