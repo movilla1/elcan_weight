@@ -3,20 +3,25 @@
 # Table name: weights
 #
 #  id         :integer          not null, primary key
-#  weight     :string
+#  weight     :string(255)
 #  truck_id   :integer
 #  axis       :integer
 #  complete   :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :integer
-#  raw_data   :string
+#  raw_data   :string(255)
 #  device_id  :integer
 #
 # Indexes
 #
 #  index_weights_on_truck_id  (truck_id)
 #  index_weights_on_user_id   (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (truck_id => trucks.id)
+#  fk_rails_...  (user_id => users.id)
 #
 
 require 'test_helper'

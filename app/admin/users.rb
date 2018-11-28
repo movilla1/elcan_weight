@@ -15,7 +15,7 @@ ActiveAdmin.register User do
     :slug,
     :password,
     :password_confirmation,
-    :role_ids
+    roles_attributes: [:role]
   ]
 
   searchable_select_options(
@@ -37,9 +37,8 @@ ActiveAdmin.register User do
     column :nombre
     column :apellido
     column :legajo
-    column :user_roles do |row|
+    column :role do |row|
       row.roles.each do |rol|
-        next if rol.blank?
         div class: "role-display" do
           rol.role.humanize
         end
@@ -60,7 +59,7 @@ ActiveAdmin.register User do
       f.input :password, as: :password
       f.input :password_confirmation, as: :password
       has_many :roles do |nf|
-        nf.input :role, as: :searchable_select, collection: Role.roles
+        nf.input :role, as: :select
       end
     end
     f.actions # adds the 'Submit' and 'Cancel' buttons
@@ -70,47 +69,46 @@ ActiveAdmin.register User do
     def find_resource
       scoped_collection.friendly.find(params[:id])
     end
-
-    def update
-      @user = User.find(params[:id])
-      roles = params[:user].delete(:role_ids)
-      if permitted_params[:user][:password].blank?
-        _pwd = permitted_params[:user].delete(:password)
-        _pwd_c = permitted_params[:user].delete(:password_confirmation)
-        @user.update_without_password(permitted_params[:user])
-      else
-        @user.update_attributes(permitted_params[:user])
-      end
-      if @user.errors.blank?
-        update_roles(roles)
-        redirect_to admin_users_path, notice: t("user_update_success")
-      else
-        render :edit
-      end
-    end
-
-    def update_roles(roles)
-      return if @user.blank?
-      @user.roles.destroy_all
-      clean_roles = roles.reject &:empty?
-      clean_roles.each do |s_role|
-        @user.roles.create!(role: s_role.to_i) if s_role.present?
-      end
-    end
   end
 
-  show do
-    attributes_table do
-      row :username
-      row :email
-      row :nombre
-      row :apellido
-      row :legajo
-      row :slug
-      row :last_sign_in_ip
-      row :last_sign_in_at
-      row :reset_password_sent_at
-      row :sign_in_count
+  show do |user_row|
+    div class: "col-md-5" do
+      attributes_table do
+        row :username
+        row :email
+        row :nombre
+        row :apellido
+        row :legajo
+        row :slug
+        row :last_sign_in_ip
+        row :last_sign_in_at
+        row :reset_password_sent_at
+        row :sign_in_count
+      end
+    end
+    div class: "col-md-5" do
+      div class: "row" do
+        div class: "col-md-8" do
+          panel I18n.t("roles") do
+            user_row.roles.each do |role_row|
+              div class: "role-display" do
+                role_row.role.humanize
+              end
+            end
+          end
+        end
+      end
+      div class: "row" do
+        div class: "col-md-8" do
+          panel I18n.t("trucks") do
+            user_row.trucks.each do |truck_row|
+              div class: "role-display" do
+                truck_row.display_string
+              end
+            end
+          end
+        end
+      end
     end
   end
 

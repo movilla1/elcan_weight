@@ -55,7 +55,7 @@ module Reports
 
     def find_matching_out_row(output, row)
       out_row = output.find do |x|
-        x.created_at - row.created_at <= 5.minutes &&
+        x.created_at - row.created_at <= 2.minutes &&
           x.truck_id == row.truck_id
       end
       out_row

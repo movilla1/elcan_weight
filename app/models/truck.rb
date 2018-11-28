@@ -4,13 +4,13 @@
 # Table name: trucks
 #
 #  id           :integer          not null, primary key
-#  license      :string
+#  license      :string(255)
 #  purchased    :date
-#  capacity     :float
+#  capacity     :float(24)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  active       :boolean
-#  empty_weight :decimal(, )
+#  empty_weight :decimal(10, )
 #
 
 class Truck < ActiveRecord::Base

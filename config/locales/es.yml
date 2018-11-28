@@ -52,6 +52,7 @@ es:
   daily_report: "Reporte Diario"
   day_to_fetch: "Dia a obtener"
   no_driver_selected: "No ha seleccionado un chofer"
+  roles: "Roles"
   time:
     formats:
       long: "%d de %B de %Y %H:%M:%S"

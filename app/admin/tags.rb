@@ -3,11 +3,6 @@ ActiveAdmin.register Tag do
        parent: 'Device Manager'
   permit_params :user_id, :active, :tag_uid, :device_position
 
-  searchable_select_options(
-    scope: Tag.active,
-    text_attribute: :id
-  )
-
   filter :user
   filter :tag_uid
   filter :active
@@ -40,4 +35,9 @@ ActiveAdmin.register Tag do
       row :updated_at
     end
   end
+
+  searchable_select_options(
+    scope: Tag.active,
+    text_attribute: :id
+  )
 end

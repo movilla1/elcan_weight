@@ -14,6 +14,11 @@
 #  index_tag_positions_on_device_id  (device_id)
 #  index_tag_positions_on_tag_id     (tag_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (device_id => devices.id)
+#  fk_rails_...  (tag_id => tags.id)
+#
 
 class TagPosition < ActiveRecord::Base
   belongs_to :tag

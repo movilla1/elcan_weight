@@ -3,15 +3,15 @@
 # Table name: devices
 #
 #  id         :integer          not null, primary key
-#  uid        :string
-#  net_addr   :string
-#  username   :string
-#  pass       :string
+#  uid        :string(255)
+#  net_addr   :string(255)
+#  username   :string(255)
+#  pass       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  slug       :string
+#  slug       :string(255)
 #  in_out     :boolean
-#  name       :string
+#  name       :string(255)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
