@@ -10,7 +10,7 @@
 if Rails.env.development?
   admin = User.create!(
     email: "admin@example.com", password: "password", password_confirmation: "password",
-    nombre: "admin", legajo: "1", username: "admin"
+    nombre: "supaadmin", legajo: "1", username: "supaadmin"
   )
   driver1 = User.create!(
     email: "user1@example.com", password: "entrada", password_confirmation: "entrada",

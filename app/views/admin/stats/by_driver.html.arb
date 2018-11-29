@@ -18,11 +18,10 @@ form action: admin_stats_show_report_by_driver_path, method: :post do
   div class: 'row' do
     div class: 'col-md-8 col-md-offset-2' do
       label I18n.t('format'), for: 'format'
-      select :format do
-        option :html
-        option :xsls
-        option :json
-        option :csv
+      select name: "format" do
+        option "HTML", value: "html"
+        option "XLSX", value: "xlsx"
+        option "JSON", value: "json"
       end
     end
   end

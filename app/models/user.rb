@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   scope :by_role, ->(this_rol) { joins(:roles).where(roles: { role: this_rol }) }
 
   def self.find_with_tag(tag_uid)
-    tag = Tag.find_by(tag_uid: tag_uid.upcase)
+    tag = Tag.find_by(uid: tag_uid.upcase)
     tag.user if tag.present?
   end
 

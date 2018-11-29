@@ -7,6 +7,16 @@ form action: admin_stats_daily_report_render_path, method: :post do
       input type: 'text', name: :date_start, 'data-provide': 'datepicker', "data-date-format": "yyyy-mm-dd"
     end
   end
+  div class: 'row' do
+    div class: 'col-md-4 col-md-offset-4' do
+      label I18n.t('format'), for: 'format'
+      select name: "format" do
+        option "HTML", value: "html"
+        option "XLSX", value: "xlsx"
+        option "JSON", value: "json"
+      end
+    end
+  end
   br
   input type: 'hidden', name: :authenticity_token, value: form_authenticity_token
   div class: 'row' do

@@ -15,7 +15,7 @@ ActiveAdmin.register User do
     :slug,
     :password,
     :password_confirmation,
-    roles_attributes: [:role]
+    roles_attributes: %i[id role]
   ]
 
   searchable_select_options(

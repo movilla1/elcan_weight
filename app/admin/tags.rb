@@ -1,16 +1,16 @@
 ActiveAdmin.register Tag do
   menu label: 'Tags',
        parent: 'Device Manager'
-  permit_params :user_id, :active, :tag_uid, :device_position
+  permit_params :user_id, :active, :uid, :device_position
 
   filter :user
-  filter :tag_uid
+  filter :uid
   filter :active
 
   index do
     selectable_column
     column :id
-    column :tag_uid
+    column :uid
     column :active
     actions
   end
@@ -18,7 +18,7 @@ ActiveAdmin.register Tag do
   form do |f|
     f.semantic_errors
     f.inputs do
-      input :tag_uid
+      input :uid
       input :active
       input :user
     end
@@ -28,7 +28,7 @@ ActiveAdmin.register Tag do
   show do
     attributes_table do
       row :id
-      row :tag_uid
+      row :uid
       row :user
       row :active
       row :created_at

@@ -8,7 +8,7 @@ ActiveAdmin.register_page "Stats" do
   menu priority: 10, label: proc { I18n.t("stats") }
   sidebar I18n.t("help") do
     h3 t("stats_help")
-    para t("stats_help_description")
+    para t("stats_help_description").html_safe
   end
   content title: proc { I18n.t("stats") } do
     panel t("reports") do
@@ -58,7 +58,12 @@ ActiveAdmin.register_page "Stats" do
     end
     rpt = Reports::ByDriver.new(params[:driver_id], params[:date_start], params[:date_end])
     report_rows = rpt.report
-    render "admin/stats/report_by_driver", locals: { report_rows: report_rows }
+    render_format = params[:format]
+    if render_format != "json"
+      render render_format.to_sym => "admin/stats/report_by_driver", locals: { report_rows: report_rows }
+    else
+      render json: @report_rows
+    end
   end
 
   page_action :daily_report do
@@ -66,8 +71,13 @@ ActiveAdmin.register_page "Stats" do
   end
 
   page_action :daily_report_render, method: :post do
+    render_format = params[:format]
     report_manager = Reports::Daily.new(params[:date_start], params[:date_start])
     report_rows = report_manager.report
-    render "admin/stats/daily_report", locals: { report_rows: report_rows }
+    if render_format != "json"
+      render render_format.to_sym => "admin/stats/daily_report", locals: { report_rows: report_rows }
+    else
+      render json: report_rows
+    end
   end
 end

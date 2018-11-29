@@ -23,7 +23,7 @@ class Device < ActiveRecord::Base
   has_many :tag_positions
   has_many :intrussions
 
-  accepts_nested_attributes_for :tag_positions
+  accepts_nested_attributes_for :tag_positions, allow_destroy: true
 
   def to_s
     uid
