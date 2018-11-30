@@ -59,7 +59,7 @@ ActiveAdmin.register Device do
       f.input :name
       f.input :net_addr
       f.input :username
-      f.input :pass, as: :password
+      f.input :password
     end
     f.inputs do
       f.has_many :tag_positions,
