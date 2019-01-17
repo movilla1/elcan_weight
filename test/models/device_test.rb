@@ -6,7 +6,7 @@
 #  uid        :string(255)
 #  net_addr   :string(255)
 #  username   :string(255)
-#  pass       :string(255)
+#  password   :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  slug       :string(255)

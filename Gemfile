@@ -47,8 +47,6 @@ gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 
 gem 'axlsx_rails'
 
-gem 'bootstrap-datepicker-rails'
-
 gem 'httparty'
 
 # select2 for aa

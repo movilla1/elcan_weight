@@ -28,14 +28,14 @@ form action: admin_stats_show_report_by_driver_path, method: :post do
   div class: 'row' do
     div class: 'col-md-8 col-md-offset-2' do
       label I18n.t('date_start'), for: 'date_start'
-      input type: 'text', name: :date_start, 'data-provide': 'datepicker', "data-date-format": "yyyy-mm-dd"
+      input type: 'text', value: "", name: :date_start, 'data-provide': 'datepicker', "data-date-format": "yyyy-mm-dd", autocomplete: "off", "data-date-today-highlight": "true", "data-date-days-of-week-highlighted": "0"
     end
   end
   br
   div class: 'row' do
     div class: 'col-md-8 col-md-offset-2' do
       label I18n.t('date_end'), for: 'date_end'
-      input type: 'text', name: :date_end, "data-provide": 'datepicker', "data-date-format": "yyyy-mm-dd"
+      input type: 'text', value: "", name: :date_end, "data-provide": 'datepicker', "data-date-format": "yyyy-mm-dd", autocomplete: "off", "data-date-today-highlight": "true", "data-date-days-of-week-highlighted": "0"
     end
   end
   br

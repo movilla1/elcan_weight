@@ -16,7 +16,7 @@
 //= require bootstrap-sprockets
 //= require metis_menu
 //= require sb-admin-2.min
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
+//= require bootstrap-datepicker.min
+//= require locales/bootstrap-datepicker.es.min.js
 //= require active_admin/searchable_select
 //= require_tree .

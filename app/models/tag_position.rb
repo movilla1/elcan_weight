@@ -8,6 +8,7 @@
 #  position   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  on_device  :boolean
 #
 # Indexes
 #
@@ -19,6 +20,7 @@
 #  fk_rails_...  (device_id => devices.id)
 #  fk_rails_...  (tag_id => tags.id)
 #
+
 class TagPosition < ActiveRecord::Base
   belongs_to :tag
   belongs_to :device

@@ -13,18 +13,20 @@ ActiveAdmin.register_page "Stats" do
   content title: proc { I18n.t("stats") } do
     panel t("reports") do
       div class: "row" do
-        div class: "col-md-5" do
-          link_to t("report_by_truck"), admin_stats_report_by_truck_path
+        div class: "col-md-3" do
+          link_to t("report_by_truck"),
+                  admin_stats_report_by_truck_path,
+                  class: "btn btn-default"
         end
-      end
-      div class: "row" do
-        div class: "col-md-5" do
-          link_to t("report_by_driver"), admin_stats_report_by_driver_path
+        div class: "col-md-3" do
+          link_to t("report_by_driver"),
+                  admin_stats_report_by_driver_path,
+                  class: "btn btn-default"
         end
-      end
-      div class: "row" do
-        div class: "col-md-5" do
-          link_to t("daily_report"), admin_stats_daily_report_path
+        div class: "col-md-3" do
+          link_to t("daily_report"),
+                  admin_stats_daily_report_path,
+                  class: "btn btn-default"
         end
       end
     end
@@ -60,7 +62,8 @@ ActiveAdmin.register_page "Stats" do
     report_rows = rpt.report
     render_format = params[:format]
     if render_format != "json"
-      render render_format.to_sym => "admin/stats/report_by_driver", locals: { report_rows: report_rows }
+      render render_format.to_sym => "admin/stats/report_by_driver",
+             locals: { report_rows: report_rows }
     else
       render json: @report_rows
     end
@@ -75,7 +78,8 @@ ActiveAdmin.register_page "Stats" do
     report_manager = Reports::Daily.new(params[:date_start], params[:date_start])
     report_rows = report_manager.report
     if render_format != "json"
-      render render_format.to_sym => "admin/stats/daily_report", locals: { report_rows: report_rows }
+      render render_format.to_sym => "admin/stats/daily_report",
+             locals: { report_rows: report_rows }
     else
       render json: report_rows
     end
