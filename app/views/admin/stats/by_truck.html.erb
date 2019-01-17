@@ -4,24 +4,48 @@
     <h2>No trucks defined</h2>
   </div>
   <% else %>
-  <%= form_tag action: :trucks_report, method: :post do %>
+  <%= form_tag action: :show_report_by_truck, method: :post do %>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <%= label_tag t('truck_license') %>
       <%= select_tag :truck_id, options_from_collection_for_select(Truck.all, :id, :license),
-          {class: "select2", id: "truck_id_select2", data: {url: truck_by_license_path(format: :json)} }%>
+          {class: "select2", id: "truck_id_select2", data: {url: all_options_admin_trucks_path(format: :json)} }%>
     </div>
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <%= label_tag t("date_start") %>
-      <%= text_field_tag :date_start, nil, {data: {provide: 'datepicker'}, class: "form-control"} %> <br>
+      <%= text_field_tag :date_start, 
+            nil,
+            {
+              data: {
+                provide: 'datepicker',
+                "date-format": "yyyy-mm-dd",
+                "date-today-highlight": "true",
+                "date-days-of-week-highlighted": "0",
+                "data-date-autoclose": "true"
+              },
+              class: "form-control",
+              autocomplete: "off"
+            } %> <br>
     </div>
   </div>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
     <%= label_tag t("date_end") %>
-    <%= text_field_tag :date_end, nil, {data: {provide: 'datepicker'}, class: "form-control"} %>
+    <%= text_field_tag :date_end,
+            nil,
+            {
+              data: {
+                provide: 'datepicker',
+                "date-format": "yyyy-mm-dd",
+                "date-today-highlight": "true",
+                "date-days-of-week-highlighted": "0",
+                "data-date-autoclose": "true"
+              },
+              class: "form-control",
+              autocomplete: "off"
+            } %>
     </div>
   </div>
   <div class="row">&nbsp;</div>

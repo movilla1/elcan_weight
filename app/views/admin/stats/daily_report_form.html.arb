@@ -4,7 +4,7 @@ form action: admin_stats_daily_report_render_path, method: :post do
   div class: 'row' do
     div class: 'col-md-4 col-md-offset-4' do
       label I18n.t('day_to_fetch'), for: 'date_start'
-      input type: 'text', name: :date_start, 'data-provide': 'datepicker', "data-date-format": "yyyy-mm-dd"
+      input type: 'text', name: :date_start, 'data-provide': 'datepicker', "data-date-format": "yyyy-mm-dd", autocomplete: "off", "data-date-today-highlight": "true", "data-date-days-of-week-highlighted": "0", "data-date-autoclose": "true"
     end
   end
   div class: 'row' do
