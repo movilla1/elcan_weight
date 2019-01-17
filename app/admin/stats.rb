@@ -62,7 +62,8 @@ ActiveAdmin.register_page "Stats" do
     report_rows = rpt.report
     render_format = params[:format]
     if render_format != "json"
-      render render_format.to_sym => "admin/stats/report_by_driver",
+      render "admin/stats/report_by_driver",
+             format: render_format.to_sym,
              locals: { report_rows: report_rows }
     else
       render json: @report_rows
@@ -78,7 +79,8 @@ ActiveAdmin.register_page "Stats" do
     report_manager = Reports::Daily.new(params[:date_start], params[:date_start])
     report_rows = report_manager.report
     if render_format != "json"
-      render render_format.to_sym => "admin/stats/daily_report",
+      render "admin/stats/daily_report",
+             format: render_format.to_sym,
              locals: { report_rows: report_rows }
     else
       render json: report_rows
