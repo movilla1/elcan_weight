@@ -52,6 +52,8 @@ es:
   daily_report: "Reporte Diario"
   day_to_fetch: "Dia a obtener"
   no_driver_selected: "No ha seleccionado un chofer"
+  total_weight: "Peso total"
+  another_report: "Otro reporte"
   roles: "Roles"
   time:
     formats:
@@ -141,3 +143,9 @@ es:
         attributes:
           password:
             blank: "Clave vacía"
+  views:
+    pagination:
+      next: "Siguiente"
+      previous: "Anterior"
+      last: "Ultima"
+      first: "Primera"

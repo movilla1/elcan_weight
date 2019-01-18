@@ -16,10 +16,11 @@ module Reports
         created_at: @start_date..@end_date
       )
       input, output = get_in_out_from_rows(rows)
-      @weights = assemble_rows(input, output)
+      @weights, total_weight = assemble_rows(input, output)
       {
         driver: @driver,
         truck: input.first.try(:truck).try(:display_string),
+        total_weight: total_weight,
         weights: @weights
       }
     end
@@ -36,6 +37,7 @@ module Reports
 
     def assemble_rows(input, output)
       out = []
+      total_weight = 0
       input.each do |row|
         out_row = find_matching_out_row(output, row)
         weight = if out_row.present? && row.present? && row.weight.present?
@@ -49,8 +51,9 @@ module Reports
           measured_weight: weight,
           weight_start: row.created_at
         }
+        total_weight += weight if weight.class != String
       end
-      out
+      [out, total_weight]
     end
 
     def find_matching_out_row(output, row)

@@ -80,7 +80,7 @@ ActiveAdmin.register_page "Stats" do
     report_rows = report_manager.report
     if render_format != "json"
       render "admin/stats/daily_report",
-             format: render_format.to_sym,
+             format: render_format,
              locals: { report_rows: report_rows }
     else
       render json: report_rows
