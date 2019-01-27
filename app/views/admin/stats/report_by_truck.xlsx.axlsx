@@ -1,0 +1,20 @@
+wb = xlsx_package.workbook
+wb.styles do |s|
+  title = s.add_style b: true, sz: 14, alignment: { horizontal: :center }
+  result = s.add_style b: true, sz: 12, bg_color: "CCDCCC"
+  bordered = s.add_style border: { style: :thin, color: "303030"}
+  bordered_date = s.add_style border: { style: :thin, color: "303030"}, format_code: "yyyy-mm-dd"
+  wb.add_worksheet(name: I18n.t("weights").humanize) do |sheet|
+    sheet.add_row [ I18n.t('truck'), report_rows[0][:truck] ], style: [title, nil]
+    report_rows.each do |rpt_row|
+      sheet.add_row [ I18n.t('driver'), rpt_row[:driver]], style: [title, nil]
+      sheet.add_row []
+      sheet.add_row [I18n.t('weight'), I18n.t('date_weight')], style: title
+      rpt_row[:weights].each do |item|
+        sheet.add_row [item[:measured_weight], item[:weight_start]], style: [bordered, bordered_date]
+      end
+      sheet.add_row  [  I18n.t('total_weight') + ":", report_rows[:total_weight].to_s ], style: [title,result]
+      sheet.add_row []
+    end
+  end
+end

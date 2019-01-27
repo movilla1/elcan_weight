@@ -17,5 +17,4 @@
 //= require sb-admin-2.min
 //= require active_admin/base
 //= require bootstrap-sprockets
-
 //= require_tree .

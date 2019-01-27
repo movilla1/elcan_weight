@@ -6,3 +6,13 @@ Metrics/LineLength:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Layout/AlignHash:
+  EnforcedColonStyle: key
+  EnforcedLastArgumentHashStyle: always_ignore
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented

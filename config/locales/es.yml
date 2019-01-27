@@ -55,6 +55,12 @@ es:
   total_weight: "Peso total"
   another_report: "Otro reporte"
   roles: "Roles"
+  no_trucks_defined: "No hay camiones definidos"
+  absent: "Ausente"
+  by: "Por"
+  day: "Día"
+  gross_total_weight_by_day: "Peso bruto total por día"
+  net_total_weight: "Peso Neto Total"
   time:
     formats:
       long: "%d de %B de %Y %H:%M:%S"

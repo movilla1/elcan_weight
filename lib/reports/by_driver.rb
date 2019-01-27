@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+require "reports/report_base"
 
 module Reports
   # Creates a report by driver, with an input and output row
-  class ByDriver
+  class ByDriver < ReportBase
     attr_reader :rows
     def initialize(driver_id, start_date, end_date)
       @driver = User.find(driver_id)
@@ -16,52 +17,13 @@ module Reports
         created_at: @start_date..@end_date
       )
       input, output = get_in_out_from_rows(rows)
-      @weights, total_weight = assemble_rows(input, output)
+      weights, total_weight = assemble_rows(input, output)
       {
         driver: @driver,
         truck: input.first.try(:truck).try(:display_string),
         total_weight: total_weight,
-        weights: @weights
+        weights: weights
       }
-    end
-
-    private
-
-    def get_in_out_from_rows(rows)
-      input = rows.select { |x| x.axis == 1 }
-      input = input.sort_by &:created_at
-      output = rows.select { |x| x.axis == 2 }
-      output = output.sort_by &:created_at
-      [input, output]
-    end
-
-    def assemble_rows(input, output)
-      out = []
-      total_weight = 0
-      input.each do |row|
-        out_row = find_matching_out_row(output, row)
-        weight = if out_row.present? && row.present? && row.weight.present?
-                   row.weight.to_f + out_row.weight.to_f - row.truck.empty_weight.to_f
-                 else
-                   I18n.t("incomplete")
-                 end
-        out << {
-          input: row,
-          output: out_row,
-          measured_weight: weight,
-          weight_start: row.created_at
-        }
-        total_weight += weight if weight.class != String
-      end
-      [out, total_weight]
-    end
-
-    def find_matching_out_row(output, row)
-      out_row = output.find do |x|
-        x.created_at - row.created_at <= 2.minutes &&
-          x.truck_id == row.truck_id
-      end
-      out_row
     end
   end
 end

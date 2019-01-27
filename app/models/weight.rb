@@ -35,4 +35,17 @@ class Weight < ActiveRecord::Base
       truck_id: truck_id
     )
   }
+  def self.by_date_and_truck(truck_id, date_start, date_end)
+    includes(truck: [:users])
+      .where(truck_id: truck_id, "weights.created_at": date_start..date_end)
+      .group("DATE_FORMAT(weights.created_at, '%Y-%m-%d')")
+      .sum(:weight)
+  end
+
+  def self.by_date_and_user(user_id, date_start, date_end)
+    includes(:user)
+      .where(user_id: user_id, "weights.created_at": date_start..date_end)
+      .group("DATE_FORMAT(weights.created_at, '%Y-%m-%d')")
+      .sum(:weight)
+  end
 end

@@ -1,0 +1,66 @@
+<h2>
+  <%= I18n.t('truck').humanize + ": " + truck.display_string %>
+  <%= link_to  admin_truck_path(truck), title: I18n.t("view"), target: "_blank" do %><span class="fa fa-eye"></span><% end %>
+</h2>
+<% report_rows.each do |item| %>
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+        <th><%= I18n.t("driver") %></th>
+        <th><%= I18n.t("weights") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <strong><%= item[:driver]%></strong>
+          <%= link_to admin_user_path(item[:driver]), title: I18n.t("view"), target: "_blank " do %><span class="fa fa-eye"></span><% end %>
+        </td>
+        <td>
+          <table class="table table-stripped">
+            <tr>
+              <th><%=I18n.t('date_weight')%></th>
+              <th><%= I18n.t('weight') %></th>
+            </tr>
+            <% item[:weights].each do |weight_row| %>
+            <tr>
+              <td><%= weight_row[:weight_start].to_formatted_s(I18n.t("date.format.long")) %></td>
+              <td><%= weight_row[:measured_weight] %></td>
+            </tr>
+            <% end %>
+            <tr>
+              <th><%=I18n.t('net_total_weight') %>:</th>
+              <th><%= item[:total_weight].to_s %></th>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>
+    
+  </h3>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <canvas id="bytruck" width="640" height="480"></canvas>
+    </div>
+  </div>
+  <script type="text/javascript">
+  var ctx = document.getElementById("bytruck");
+  var dataLabels = <%=raw json_labels %>;
+  var dataPoints = <%=raw json_data %>;
+  var myChart = new Chart(ctx, {
+    type: "horizontalBar",
+    data: {
+      labels: dataLabels,
+      datasets: [{
+        label: "<%= I18n.t("gross_total_weight_by_day") %>",
+        data: dataPoints
+      }]
+    },
+    options: {
+      responsive: false
+    }
+  })
+  </script>
+<% end %>

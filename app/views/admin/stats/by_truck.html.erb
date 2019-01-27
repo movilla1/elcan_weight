@@ -1,10 +1,10 @@
 <h1><%= t("report_by_truck") %></h1>
 <% if Truck.all.count <= 0 %>
   <div class="row alert alert-danger">
-    <h2>No trucks defined</h2>
+    <h2><%= I18n.t("no_trucks_defined") %></h2>
   </div>
   <% else %>
-  <%= form_tag action: :show_report_by_truck, method: :post do %>
+  <%= form_tag admin_stats_show_report_by_truck_path, method: :post do %>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <%= label_tag t('truck_license') %>
@@ -23,7 +23,7 @@
                 "date-format": "yyyy-mm-dd",
                 "date-today-highlight": "true",
                 "date-days-of-week-highlighted": "0",
-                "data-date-autoclose": "true"
+                "date-autoclose": "true"
               },
               class: "form-control",
               autocomplete: "off"
@@ -41,11 +41,17 @@
                 "date-format": "yyyy-mm-dd",
                 "date-today-highlight": "true",
                 "date-days-of-week-highlighted": "0",
-                "data-date-autoclose": "true"
+                "date-autoclose": "true"
               },
               class: "form-control",
               autocomplete: "off"
             } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+      <%= label_tag I18n.t("format") %>
+      <%= select_tag :format, options_for_select([:HTML, :XLSX, :JSON])%>
     </div>
   </div>
   <div class="row">&nbsp;</div>

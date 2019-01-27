@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-7">
+    <h2> <%= I18n.t("daily_report") %> </h2>
+  </div>
+  <div class="col-md-5">
+    <h3> <%= day_date.to_formatted_s(I18n.t("date.format.short")) %></h3>
+  </div>
+</div>
+<% report_rows.each do |rpt_row| %>
+  <div class="row">
+    <div class="col-md-4"><h4><%= I18n.t('driver') %>: <%= rpt_row[:driver] %></h4></div>
+    <div class="col-md-4"><h4><%= I18n.t('truck') %>: <%= rpt_row[:truck].presence || I18n.t("absent") %></h4></div>
+  </div>
+  <hr />
+  <% next if rpt_row[:truck].blank? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%=I18n.t('date_weight')%></th>
+        <th><%=I18n.t('weight')%></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% rpt_row[:weights].each do |item| %>
+      <tr>
+        <td><%= item[:weight_start].to_formatted_s(I18n.t("date.format.long")) %></td>
+        <td><%= item[:measured_weight] %></td>
+      <tr>
+    <% end%>
+    <tr>
+      <th><%= I18n.t('net_total_weight')+":" %></th>
+      <th><%= rpt_row[:total_weight].to_s %></th>
+    </tr>
+    </tbody>
+  </table>
+<% end %>
+<div class="row">
+  <div class="col-md-12 text-center">
+    <canvas id="dailyreport" width="800" height="400"></canvas>
+  </div>
+</div>
+<div class="text-center">
+  <%= link_to I18n.t("another_report"), :back, class: "btn btn-primary", style: "color: white; text-decoration: none" %>
+</div>
+<script type="text/javascript">
+  var ctx = document.getElementById("dailyreport");
+  var dataLabels = <%=raw json_labels %>;
+  var dataPoints = <%=raw json_data %>;
+  var myChart = new Chart(ctx, {
+    type: "horizontalBar",
+    data: {
+      labels: dataLabels,
+      datasets: [{
+        label: "<%= I18n.t("gross_total_weight_by_day") %>",
+        data: dataPoints
+      }]
+    },
+    options: {
+      responsive: false
+    }
+  })
+</script>

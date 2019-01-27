@@ -1,0 +1,22 @@
+wb = xlsx_package.workbook
+wb.styles do |s|
+  title = s.add_style b: true, sz: 14, alignment: { horizontal: :center }
+  result = s.add_style b: true, sz: 12, bg_color: "CCDCCC"
+  bordered = s.add_style border: { style: :thin, color: "303030"}
+  bordered_date = s.add_style border: { style: :thin, color: "303030"}, format_code: "yyyy-mm-dd"
+  wb.add_worksheet(name: I18n.t("weights")) do |sheet|
+    sheet.add_row [I18n.t("daily_report").humanize, nil, nil, Date.current.to_formatted_s(I18n.t("date.format.short"))], style: title
+    sheet.add_row []
+    report_rows.each do |row|
+      sheet.add_row [ I18n.t("driver").humanize, row[:driver].display_string, I18n.t("truck").humanize, row[:truck].presence || I18n.t("absent") ], style: [title, nil, title, nil]
+      sheet.add_row [] and next if row[:truck].blank?
+      sheet.add_row [ nil, I18n.t("date_weight").humanize, I18n.t("weight").humanize ], style: title
+      row[:weights].each do |weight_row|
+        sheet.add_row [nil, weight_row[:weight_start], weight_row[:measured_weight]], style: [nil, bordered, bordered_date]
+      end
+      sheet.add_row [ nil, I18n.t('total_weight').humanize+": ", row[:total_weight].to_s ], style: [nil, title, result]
+      sheet.add_row []
+    end
+    
+  end
+end

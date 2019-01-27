@@ -35,8 +35,6 @@ gem 'bootstrap-sass', '~> 3.3.7'
 
 gem 'activeadmin_blaze_theme'
 
-gem 'font-awesome-rails'
-
 gem 'friendly_id'
 
 gem 'kaminari'
@@ -59,6 +57,8 @@ gem 'unicorn'
 # gem 'capistrano-rails', group: :development
 # delayed jobs to send the data to the device in a worker
 gem 'delayed_job_active_record'
+
+gem "font-awesome-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
