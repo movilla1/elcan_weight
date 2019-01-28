@@ -1,0 +1,38 @@
+form action: admin_stats_driver_performance_report_render_path, method: :post do
+  h1 I18n.t("driver_performance_report")
+  h4 I18n.t("please_select_dates")
+  br
+  div class: "row" do
+    div class: "col-md-2 col-md-offset-2" do
+      label_tag I18n.t("date_start")
+    end
+    div class: "col-md-6" do
+      text_field_tag "date_start", nil, class: "form-control", 'data-provide': 'datepicker', "data-date-format": "yyyy-mm-dd", autocomplete: "off", "data-date-today-highlight": "true", "data-date-days-of-week-highlighted": "0", "data-date-autoclose": "true"
+    end
+  end
+  br
+  div class:"row" do
+    div class: "col-md-2 col-md-offset-2" do
+      label_tag I18n.t("date_end")
+    end
+    div class: "col-md-6" do
+      text_field_tag "date_end", nil, class: "form-control", 'data-provide': 'datepicker', "data-date-format": "yyyy-mm-dd", autocomplete: "off", "data-date-today-highlight": "true", "data-date-days-of-week-highlighted": "0", "data-date-autoclose": "true"
+    end
+  end
+  br
+  div class: "row" do
+    div class: "col-md-2 col-md-offset-2" do
+      label_tag I18n.t("format")
+    end
+    div class: "col-md-6" do
+      select_tag :format, options_for_select([:HTML, :XLSX, :JSON])
+    end
+  end
+  br
+  input type: 'hidden', name: :authenticity_token, value: form_authenticity_token
+  div class: "row" do
+    div class: "col-md-4 col-md-offset-4" do
+      submit_tag I18n.t("get_report")
+    end
+  end
+end

@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= I18n.t("driver_performance_report") %></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h3><%= I18n.t("dates").humanize %>: <%= start_date %> <%= I18n.t("to") %> <%= end_date %></h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= I18n.t("driver")%></th>
+          <th><%= I18n.t("gross_total_weight")%></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% report_rows[2].each do |weight_row| %>
+        <tr>
+          <td><%= weight_row[0] %></td>
+          <td><%= weight_row[1] %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <canvas id="performance" width="800" height="400"></canvas>
+  </div>
+</div>
+<script type="text/javascript">
+var ctx = document.getElementById("performance");
+  var dataLabels = <%=raw json_labels %>;
+  var dataPoints = <%=raw json_data %>;
+  var myChart = new Chart(ctx, {
+    type: "horizontalBar",
+    data: {
+      labels: dataLabels,
+      datasets: [{
+        label: "<%= I18n.t("gross_total_weight") %>",
+        data: dataPoints
+      }]
+    },
+    options: {
+      responsive: false
+    }
+  })
+</script>

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require "reports/by_truck.rb"
-require "reports/by_driver.rb"
-require "reports/daily.rb"
+require "reports/by_truck"
+require "reports/by_driver"
+require "reports/driver_performance"
+require "reports/daily"
 
 ActiveAdmin.register_page "Stats" do
   menu priority: 10, label: proc { I18n.t("stats") }
@@ -11,7 +12,7 @@ ActiveAdmin.register_page "Stats" do
     para t("stats_help_description").html_safe
   end
   content title: proc { I18n.t("stats") } do
-    panel t("reports") do
+    panel t("general_reports") do
       div class: "row" do
         div class: "col-md-3" do
           link_to t("report_by_truck"),
@@ -30,6 +31,16 @@ ActiveAdmin.register_page "Stats" do
         end
       end
     end
+    br
+    panel t("performance_reports") do
+      div class: "row" do
+        div class: "col-md-3" do
+          link_to t("driver_performance_report"),
+            admin_stats_driver_performance_report_path,
+            class: "btn btn-default"
+        end
+      end
+    end
   end
 
   page_action :report_by_truck do
@@ -44,6 +55,10 @@ ActiveAdmin.register_page "Stats" do
     render "admin/stats/daily_report_form"
   end
 
+  page_action :driver_performance_report do
+    render "admin/stats/driver_performance_form"
+  end
+
   page_action :show_report_by_truck, method: :post do
     redirect_to(:back, notice: "No Truck selected") and return if params[:truck_id].blank?
     mgr = Reports::ByTruck.new(params[:truck_id], params[:date_start], params[:date_end])
@@ -54,6 +69,7 @@ ActiveAdmin.register_page "Stats" do
     when "HTML"
       render template: "admin/stats/report_by_truck",
         locals: { report_rows: report_rows, truck: Truck.find(params[:truck_id]),
+                  date_start: params[:date_start], date_end: params[:date_end],
                   json_data: by_date_weights.values.to_json,
                   json_labels: by_date_weights.keys.to_json }
     when "XLSX"
@@ -78,8 +94,8 @@ ActiveAdmin.register_page "Stats" do
     when "HTML"
       render "admin/stats/report_by_driver",
         locals: {
-          report_rows: report_rows,
-          driver: User.find(params[:driver_id]),
+          report_rows: report_rows, driver: User.find(params[:driver_id]),
+          date_start: params[:date_start], date_end: params[:date_end],
           json_data: by_date_weights.values.to_json,
           json_labels: by_date_weights.keys.to_json
         }
@@ -97,8 +113,7 @@ ActiveAdmin.register_page "Stats" do
     report_rows = report_manager.report
     grouped_rows = report_manager.weights_grouped_by_driver
     label_array = grouped_rows.keys.collect &:display_string
-    render_format = params[:format]
-    case render_format.upcase
+    case params[:format].to_s.upcase
     when "HTML"
       render template: "admin/stats/daily_report",
         locals: {
@@ -110,6 +125,34 @@ ActiveAdmin.register_page "Stats" do
       render template: "admin/stats/daily_report",
         locals: { report_rows: report_rows, day_date: Date.strptime(params[:date_start], "%Y-%m-%d") },
         xlsx: "daily_report_#{Date.current.to_formatted_s(:iso8601)}"
+    when "JSON"
+      render json: report_rows
+    end
+  end
+
+  page_action :driver_performance_report_render, method: :post do
+    report_manager = Reports::DriverPerformance.new(params[:date_start], params[:date_end])
+    report_rows = report_manager.report
+    redirect_to :back, notice: I18n.t("no_data_found") and return if report_rows[2].count < 1
+    label_array = report_rows[2].keys.collect &:display_string
+    case params[:format].to_s.upcase
+    when "HTML"
+      render template: "admin/stats/driver_performance_report",
+        locals: {
+          report_rows: report_rows,
+          start_date: Date.strptime(params[:date_start], "%Y-%m-%d"),
+          end_date: Date.strptime(params[:date_end], "%Y-%m-%d"),
+          json_data: report_rows[2].values.to_json,
+          json_labels: label_array.to_json
+        }
+    when "XLSX"
+      render template: "admin/stats/driver_performance_report.xlsx",
+        locals: {
+          report_rows: report_rows,
+          start_date: Date.strptime(params[:date_start], "%Y-%m-%d"),
+          end_date: Date.strptime(params[:date_end], "%Y-%m-%d")
+        },
+        xlsx: "driver_performance_report_#{Date.current.to_formatted_s(:iso8601)}"
     when "JSON"
       render json: report_rows
     end
