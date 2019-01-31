@@ -47,13 +47,15 @@
   var ctx = document.getElementById("bydriver");
   var dataLabels = <%=raw json_labels %>;
   var dataPoints = <%=raw json_data %>;
+  var bgColors = getBackgroundColors(dataPoints);
   var myChart = new Chart(ctx, {
     type: "horizontalBar",
     data: {
       labels: dataLabels,
       datasets: [{
-        label: "<%= I18n.t("gross_total_weight_by_day") %>",
-        data: dataPoints
+        label: "<%= I18n.t("total_weight_by_day") %>",
+        data: dataPoints,
+        backgroundColor: bgColors
       }]
     },
     options: {

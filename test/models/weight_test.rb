@@ -2,16 +2,15 @@
 #
 # Table name: weights
 #
-#  id         :integer          not null, primary key
-#  weight     :string(255)
-#  truck_id   :integer
-#  axis       :integer
-#  complete   :boolean
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer
-#  raw_data   :string(255)
-#  device_id  :integer
+#  id            :integer          not null, primary key
+#  weight        :string(255)
+#  truck_id      :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  user_id       :integer
+#  raw_data      :string(255)
+#  device_id     :integer
+#  second_weight :string(255)
 #
 # Indexes
 #

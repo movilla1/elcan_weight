@@ -7,8 +7,8 @@ module Reports
     attr_reader :rows
     def initialize(driver_id, start_date, end_date)
       @driver = User.find(driver_id)
-      @start_date = start_date
-      @end_date = end_date
+      @start_date = start_date.is_a?(String) ? Date.strptime(start_date, "%Y-%m-%d") : start_date
+      @end_date = end_date.is_a?(String) ? Date.strptime(end_date, "%Y-%m-%d") : end_date
     end
 
     def report
@@ -16,11 +16,11 @@ module Reports
         user_id: @driver.id,
         created_at: @start_date..@end_date
       )
-      input, output = get_in_out_from_rows(rows)
-      weights, total_weight = assemble_rows(input, output)
+      first_row = rows.first
+      weights, total_weight = assemble_rows(rows)
       {
         driver: @driver,
-        truck: input.first.try(:truck).try(:display_string),
+        truck: first_row.try(:truck),
         total_weight: total_weight,
         weights: weights
       }

@@ -28,7 +28,9 @@ ActiveAdmin.register Weight do
     selectable_column
     column :id
     column :truck
-    column :weight
+    column I18n.t("net_weight") do |wr|
+      wr.weight.to_f + wr.second_weight.to_f - wr.truck.empty_weight.to_f
+    end
     column :user
     column :device
     column :created_at

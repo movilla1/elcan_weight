@@ -18,11 +18,10 @@ module Reports
         rows = Weight.where(user_id: usr.id,
           created_at: @date_start.beginning_of_day..@date_end.end_of_day,
           truck_id: @truck_id)
-        input, output = get_in_out_from_rows(rows)
-        weights, total_weight = assemble_rows(input, output)
+        weights, total_weight = assemble_rows(rows)
         ret_rows << {
           driver: usr,
-          truck: input.first.try(:truck).try(:display_string),
+          truck: rows.first.try(:truck),
           total_weight: total_weight,
           weights: weights
         }

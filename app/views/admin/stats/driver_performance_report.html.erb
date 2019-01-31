@@ -14,7 +14,7 @@
       <thead>
         <tr>
           <th><%= I18n.t("driver")%></th>
-          <th><%= I18n.t("gross_total_weight")%></th>
+          <th><%= I18n.t("total_weight")%></th>
         </tr>
       </thead>
       <tbody>
@@ -30,24 +30,56 @@
 </div>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <canvas id="performance" width="800" height="400"></canvas>
+    <h2><%= I18n.t("weight_by_driver") %></h2>
+    <span>
+      <canvas id="performance" width="800" height="400"></canvas>
+    </span>
   </div>
+</div>
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2><%= I18n.t("percentage_by_driver")%></h2>
+    <span>
+      <canvas id="reportpie" width="800" height="400"></canvas>
+    </span>
+  </div>
+</div>
+<div class="text-center">
+  <%= link_to I18n.t("another_report"), :back, class: "btn btn-primary", style: "color: white; text-decoration: none" %>
 </div>
 <script type="text/javascript">
 var ctx = document.getElementById("performance");
   var dataLabels = <%=raw json_labels %>;
   var dataPoints = <%=raw json_data %>;
+  var bgColors = getBackgroundColors(dataPoints);
   var myChart = new Chart(ctx, {
     type: "horizontalBar",
     data: {
       labels: dataLabels,
       datasets: [{
-        label: "<%= I18n.t("gross_total_weight") %>",
-        data: dataPoints
+        label: "<%= I18n.t("total_weight") %>",
+        data: dataPoints,
+        backgroundColor: bgColors
       }]
     },
     options: {
       responsive: false
     }
   })
+
+  var ctxPie = document.getElementById("reportpie");
+  var pieChart = new Chart( ctxPie, {
+    type: "pie",
+    data: {
+      labels: dataLabels,
+      datasets: [{
+        label: "<%= I18n.t("total_weight") %>",
+        data: dataPoints,
+        backgroundColor: bgColors
+      }]
+    },
+    options: {
+      responsive: false
+    }
+  });
 </script>

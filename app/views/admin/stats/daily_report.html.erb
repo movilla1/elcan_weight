@@ -36,7 +36,14 @@
 <% end %>
 <div class="row">
   <div class="col-md-12 text-center">
+    <h2><%= I18n.t("weight_by_driver") %></h2>
     <canvas id="dailyreport" width="800" height="400"></canvas>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2><%= I18n.t("percentage_by_driver")%></h2>
+    <canvas id="dailyreportpie" width="800" height="400"></canvas>
   </div>
 </div>
 <div class="text-center">
@@ -46,17 +53,35 @@
   var ctx = document.getElementById("dailyreport");
   var dataLabels = <%=raw json_labels %>;
   var dataPoints = <%=raw json_data %>;
+  var bgColors = getBackgroundColors(dataPoints);
   var myChart = new Chart(ctx, {
     type: "horizontalBar",
     data: {
       labels: dataLabels,
       datasets: [{
-        label: "<%= I18n.t("gross_total_weight_by_day") %>",
-        data: dataPoints
+        label: "<%= I18n.t("total_weight_by_day") %>",
+        data: dataPoints,
+        backgroundColor: bgColors
       }]
     },
     options: {
       responsive: false
     }
-  })
+  });
+
+  var ctxPie = document.getElementById("dailyreportpie");
+  var pieChart = new Chart( ctxPie, {
+    type: "pie",
+    data: {
+      labels: dataLabels,
+      datasets: [{
+        label: "<%= I18n.t("total_weight") %>",
+        data: dataPoints,
+        backgroundColor: bgColors
+      }]
+    },
+    options: {
+      responsive: false
+    }
+  });
 </script>

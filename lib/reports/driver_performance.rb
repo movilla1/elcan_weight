@@ -16,10 +16,11 @@ module Reports
 
     def sum_rows
       Weight
-        .includes(:user)
+        .joins(:user)
+        .joins(:truck)
         .where("weights.created_at": @start_date..@end_date)
         .group(:user)
-        .sum(:weight)
+        .sum("CAST(weight AS UNSIGNED) + CAST(second_weight AS UNSIGNED) - CAST(trucks.empty_weight AS UNSIGNED)")
     end
   end
 end
