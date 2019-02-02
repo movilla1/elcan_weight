@@ -3,7 +3,7 @@
 ActiveAdmin.register Weight do
   menu priority: 3
   # permit_params :list, :of, :attributes, :on, :model
-  permit_params :truck_id, :weight, :axis, :complete, :device_id, :user_id
+  permit_params :truck_id, :weight, :device_id, :user_id, :second_weight
 
   filter :truck, as: :searchable_select, ajax: true
   filter :user, as: :searchable_select, ajax: true
@@ -14,12 +14,12 @@ ActiveAdmin.register Weight do
     f.semantic_errors # shows errors on :base
     f.inputs do # builds an input field for every attribute
       f.input :truck, as: :searchable_select, ajax: true
-      f.input :axis
       f.input :device,
               as: :searchable_select,
               collection: Device.all.map { |x| [x.name, x.id] }
+      f.input :weight
+      f.input :second_weight
       f.input :user, as: :searchable_select, ajax: true
-      f.input :complete, as: :select
     end
     f.actions
   end
@@ -35,5 +35,22 @@ ActiveAdmin.register Weight do
     column :device
     column :created_at
     actions
+  end
+
+  show do
+    attributes_table do
+      row :id
+      row :truck
+      row :user
+      row :weight
+      row :second_weight
+      row I18n.t("net_weight") do |weight_row|
+        subtotal = weight_row.weight.to_f + weight_row.second_weight.to_f 
+        subtotal - weight_row.try(:truck).try(:empty_weight).try(:to_f)
+      end
+      row :device
+      row :created_at
+      row :updated_at
+    end
   end
 end

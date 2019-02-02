@@ -74,6 +74,7 @@ es:
   performance_report: "Reporte de Performance"
   weight_by_driver: "Peso por chofer"
   percentage_by_driver: "Porcentage por chofer"
+  no_data_for_report: "No hay datos para el reporte solicitado, puede reintentar ajustando los valores"
   time:
     formats:
       long: "%d de %B de %Y %H:%M:%S"
@@ -128,6 +129,7 @@ es:
         updated_at: "Actualizado"
         device: "Dispositivo"
         complete: "Completo"
+        second_weight: "Segundo Peso"
       tag:
         user: "Usuario"
         active: "Activo"

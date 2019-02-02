@@ -18,6 +18,7 @@ module Reports
       )
       first_row = rows.first
       weights, total_weight = assemble_rows(rows)
+      return false if weights.blank?
       {
         driver: @driver,
         truck: first_row.try(:truck),

@@ -17,8 +17,10 @@ module Reports
       drivers = User.by_role("driver").all.to_a
       drivers.each do |usr|
         rpt_manager = ByDriver.new(usr.id, @date_start, @date_end)
-        rows << rpt_manager.report
+        result = rpt_manager.report
+        rows << result if result.present?
       end
+      return false if rouws.count < 1
       rows
     end
   end

@@ -64,6 +64,7 @@ ActiveAdmin.register_page "Stats" do
     dates_from_params(params)
     mgr = Reports::ByTruck.new(params[:truck_id], params[:date_start], params[:date_end])
     report_rows = mgr.report
+    redirect_to :stats_no_data, notice: I18n.t("no_data_for_report") and return if report_rows.blank?
     by_date_weights = Weight.by_date_and_truck(params[:truck_id],
       @start_date.beginning_of_day, @end_date.end_of_day)
     case params[:format].to_s.upcase
@@ -89,9 +90,10 @@ ActiveAdmin.register_page "Stats" do
     end
     dates_from_params(params)
     rpt = Reports::ByDriver.new(params[:driver_id], @start_date.beginning_of_day, @end_date.end_of_day)
+    report_rows = rpt.report
+    redirect_to :back, notice: I18n.t("no_data_for_report") and return if report_rows.blank?
     by_date_weights = Weight.by_date_and_user(params[:driver_id],
       @start_date.beginning_of_day, @end_date.end_of_day)
-    report_rows = rpt.report
     case params[:format].to_s.upcase
     when "HTML"
       render "admin/stats/report_by_driver",
@@ -114,6 +116,7 @@ ActiveAdmin.register_page "Stats" do
     dates_from_params(params)
     report_manager = Reports::Daily.new(@start_date)
     report_rows = report_manager.report
+    redirect_to :back, notice: I18n.t("no_data_for_report") and return if report_rows.blank?
     grouped_rows = Weight.grouped_by_driver(@start_date.beginning_of_day,
       @start_date.end_of_day)
     label_array = grouped_rows.keys.collect { |x| User.find(x).display_string }
@@ -141,7 +144,7 @@ ActiveAdmin.register_page "Stats" do
       @end_date.end_of_day)
     report_rows = report_manager.report
     if report_rows[2].count < 1
-      redirect_to :back, notice: I18n.t("no_data_found") and return
+      redirect_to :back, notice: I18n.t("no_data_for_report") and return
     end
     label_array = report_rows[2].keys.collect &:display_string
     case params[:format].to_s.upcase

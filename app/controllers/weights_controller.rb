@@ -36,30 +36,21 @@ class WeightsController < ApplicationController
   end
 
   def create_weight_record(data, device_uid)
-    card_uid, stamp_part, weight_axis1, weight_axis2 = data.split("*")
+    card_uid, stamp_part, first_weight, second_weight = data.split("*")
     get_user_or_return(card_uid)
     truck_id = @user.current_truck.id
     device = Device.find_by_uid(device_uid)
+    second_weight = second_weight.presence || "000000"
     w = Weight.create(
       truck_id: truck_id,
       created_at: stamp_part,
-      weight: weight_axis1,
+      weight: first_weight,
       device_id: device.id,
-      axis: 1,
       user_id: @user.id,
-      raw_data: data
+      raw_data: data,
+      second_weight: second_weight
     )
-    w2 = Weight.create(
-      truck_id: truck_id,
-      created_at: stamp_part,
-      weight: weight_axis2,
-      device_id: device.id,
-      axis: 2,
-      user_id: @user.id,
-      raw_data: data
-    )
-
-    w.blank? || w2.blank? ? "FAIL" : "OK"
+    w.blank? ? "FAIL" : "OK"
   end
 
   def create_intrussion_record(data, device_uid)

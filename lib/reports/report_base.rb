@@ -4,6 +4,7 @@ module Reports
     def assemble_rows(input)
       out = []
       total_weight = 0
+      return [false, 0] if input.blank? || input.count < 1
       input.each do |row|
         weight = row.weight.to_f + row.second_weight.to_f - row.truck.empty_weight.to_f
         out << {

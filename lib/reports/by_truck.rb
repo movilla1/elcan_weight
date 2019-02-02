@@ -19,6 +19,7 @@ module Reports
           created_at: @date_start.beginning_of_day..@date_end.end_of_day,
           truck_id: @truck_id)
         weights, total_weight = assemble_rows(rows)
+        next if weights.blank?
         ret_rows << {
           driver: usr,
           truck: rows.first.try(:truck),
@@ -26,6 +27,7 @@ module Reports
           weights: weights
         }
       end
+      return false if ret_rouws.count < 1
       ret_rows
     end
   end
