@@ -31,7 +31,7 @@ gem 'draper'
 
 gem 'pundit'
 
-gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 gem 'activeadmin_blaze_theme'
 
